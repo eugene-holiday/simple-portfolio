@@ -15,7 +15,7 @@
                 <div class="col-sm-3">
                     <form id="image-upload-form">
                         <div class="form-group">
-                            <input type="password" class="form-control" id="imageName" placeholder="Название изображения">
+                            <input type="text" name="label" class="form-control" id="imageName" placeholder="Название изображения">
                         </div>
                         <div class="form-group">
                             <input type="file" name="image" id="input-image">

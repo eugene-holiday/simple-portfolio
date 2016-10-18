@@ -15,8 +15,17 @@ class ImageController extends Controller
 
     public function upload(Request $request)
     {
-        $file = $request->file('image');
-        dd($file);
+        if($request->hasFile('image')){
+            $file = $request->file('image');
+            $image = new Image($request->all());
+            $image->saveFile($file);
+            $image->save();
+            return $this->response()->created();
+        } else {
+            throw new ResourceException();
+        }
+
+
     }
 
 }
