@@ -1,0 +1,11 @@
+version: "2"
+services:
+  app:
+      volumes:
+         - .:/var/www/html:rw
+  mysql:
+      environment:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: roman
+          MYSQL_USER: roman
+          MYSQL_PASSWORD: roman
