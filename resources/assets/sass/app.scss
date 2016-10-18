@@ -2,8 +2,29 @@
 // Fonts
 @import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
 
+// Bootstrap
+@import "../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+
 // Variables
 @import "variables";
 
-// Bootstrap
-@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+
+body {
+  margin-top: 30px;
+}
+
+.main {
+  background-color: $main-bg;
+  padding-top: 30px;
+}
+
+.control-block {
+  padding-bottom: 30px;
+}
+
+
+@media (min-width: $screen-md-min) {
+  .pull-right-sm {
+    float: right;
+  }
+}

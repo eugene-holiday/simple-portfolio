@@ -1,20 +1,49 @@
 
-/**
- * First we will load all of this project's JavaScript dependencies which
- * include Vue and Vue Resource. This gives a great starting point for
- * building robust, powerful web applications using Vue and Laravel.
- */
+//require('./bootstrap');
 
-require('./bootstrap');
+//Vue.component('example', require('./components/Example.vue'));
 
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the body of the page. From here, you may begin adding components to
- * the application, or feel free to tweak this setup for your needs.
- */
+// const app = new Vue({
+//     el: '#app'
+// });
+import $ from "jquery";
 
-Vue.component('example', require('./components/Example.vue'));
+const app = function () {
 
-const app = new Vue({
-    el: '#app'
-});
+
+    function init() {
+        initUploadForm();
+        console.log('init app');
+    }
+
+    function initUploadForm() {
+        let form = document.getElementById('image-upload-form');
+        let fileSelect = document.getElementById('input-image');
+        let uploadButton = document.getElementById('image-upload-button');
+
+        form.onsubmit = function(event) {
+            event.preventDefault();
+            let buttonText = uploadButton.innerHTML;
+            uploadButton.innerHTML = 'Загрузка...';
+            let files = fileSelect.files;
+            let formData = new FormData(form);
+            $.ajax({
+                url: '/api/images/upload',
+                data: formData,
+                type: 'POST',
+                contentType: false,
+                processData: false
+            }).done(() => {
+                alert( "success" );
+            }).fail(() => {
+                alert( "error" );
+            }).always(() => {
+                uploadButton.innerHTML = buttonText;
+            });
+        }
+    }
+
+    init();
+};
+
+app();
