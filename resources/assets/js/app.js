@@ -6,12 +6,13 @@
 // const app = new Vue({
 //     el: '#app'
 // });
-import $ from "jquery";
+window.jQuery = window.$ = require('jquery');
 
 const app = function () {
 
     let images = [];
     let process = false;
+    let completed = false;
 
     let limit = 10;
     let offset = 0;
@@ -20,6 +21,7 @@ const app = function () {
         initUploadForm();
         getImages();
         initScroll();
+        initModal();
         console.log('init app');
     }
 
@@ -54,7 +56,7 @@ const app = function () {
     }
 
     function getImages() {
-        if(!process) {
+        if(!process && !completed) {
             process = true;
             $.ajax({
                 url: '/api/images/',
@@ -67,6 +69,9 @@ const app = function () {
                 let imagesResponse = response.data;
                 imagesResponse = inSecondOnly(images, imagesResponse);
                 offset += imagesResponse.length;
+                if(!imagesResponse.length){
+                    completed = true;
+                }
                 imagesResponse.forEach((image) => {
                     document.querySelector('.images').appendChild(imageTemplate(image));
                 });
@@ -81,12 +86,32 @@ const app = function () {
 
 
         }
+    }
 
+    function getImage() {
+            $.ajax({
+                url: '/api/images/random',
+                type: 'GET',
+            }).done((response) => {
+                let image = response.data;
+                let container = document.querySelector('#image-modal-container');
+                container.removeChild(container.firstChild);
+                document.querySelector('#image-modal-container').appendChild(modalImageTemplate(image));
+            }).fail((response) => {
+                document.querySelector('#image-modal-container').innerHTML = response.statusText;
+            });
     }
 
     function imageTemplate(image) {
         let template = document.querySelector("[data-template=image-template]").content.cloneNode(true);
         template.querySelector('.image').style.backgroundImage = "url(" + image.src + ")";
+        template.querySelector('.image-label').innerHTML = image.label;
+        return template;
+    }
+
+    function modalImageTemplate(image) {
+        let template = document.querySelector("[data-template=modal-image-template]").content.cloneNode(true);
+        template.querySelector('.modal-image').src = image.src;
         template.querySelector('.image-label').innerHTML = image.label;
         return template;
     }
@@ -152,6 +177,16 @@ const app = function () {
         var alwaysShowScroll = overflowStyle === 'scroll' || overflowYStyle === 'scroll';
 
         return (contentOverflows && overflowShown) || (alwaysShowScroll);
+    }
+
+    function initModal() {
+        $('#myModal').on('shown.bs.modal', function () {
+            getImage();
+        }).on('hide.bs.modal', function () {
+            let container = document.querySelector('#image-modal-container');
+            container.removeChild(container.firstChild);
+            container.innerHTML = 'Загрузка...'
+        })
     }
 
     init();

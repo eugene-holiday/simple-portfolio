@@ -8,6 +8,7 @@ use Dingo\Api\Exception\ResourceException;
 use Dingo\Api\Routing\Helpers;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class ImageController extends Controller
 {
@@ -38,5 +39,18 @@ class ImageController extends Controller
     {
         $images = Image::limit($request->get('limit'))->offset($request->get('offset'))->orderBy('created_at', 'DESC')->get();
         return $this->response()->collection($images, new ImageTransformer());
+    }
+
+    /**
+     * @param Request $request
+     * @return \Dingo\Api\Http\Response
+     */
+    public function random(Request $request)
+    {
+        $image = Image::orderByRaw("RAND()")->first();
+        if($image){
+            return $this->response()->item($image, new ImageTransformer())->addMeta('status', 'OK');
+        }
+        throw new NotFoundHttpException();
     }
 }

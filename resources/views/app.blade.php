@@ -25,7 +25,7 @@
                 </div>
 
                 <div class="col-sm-6 col-md-offset-3 right-control">
-                    <button type="button" class="btn btn-primary pull-right-sm" style="margin-bottom:4px;white-space: normal;">Покажите мне случайное изображение</button>
+                    <button type="button" class="btn btn-primary pull-right-sm" data-toggle="modal" data-target="#myModal" style="margin-bottom:4px;white-space: normal;">Покажите мне случайное изображение</button>
                 </div>
             </div>
 
@@ -41,8 +41,33 @@
                 </div>
             </template>
 
+            <template data-template="modal-image-template">
+                <div class="modal-image-container">
+                    <image class="modal-image img-responsive"></image>
+                    <p class="image-label">Label</p>
+                </div>
+            </template>
+
 
         </div> <!-- /container -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                    </div>
+                    <div class="modal-body" id="image-modal-container">
+                        Загрузка..
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Latest compiled and minified JavaScript -->
         <script type="text/javascript" src="/js/app.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     </body>
 </html>
