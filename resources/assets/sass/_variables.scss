@@ -36,4 +36,24 @@ $input-color-placeholder: lighten($text-color, 30%);
 // Panels
 $panel-default-heading-bg: #fff;
 
+//$screen-xs:                  300px !default;
+//$screen-sm:                  480px !default;
+//$screen-md:                  768px !default;
+//$screen-lg:                  1200px !default;
+//
+//$grid-gutter-width:         30px !default;
+//// Small screen / tablet
+//$container-tablet:             (540px + $grid-gutter-width) !default;
+////** For `$screen-sm-min` and up.
+//$container-sm:                 $container-tablet !default;
+//
+//// Medium screen / desktop
+//$container-desktop:            (768px + $grid-gutter-width) !default;
+////** For `$screen-md-min` and up.
+//$container-md:                 $container-desktop !default;
+//
+//// Large screen / wide desktop
+//$container-large-desktop:      (1140px + $grid-gutter-width) !default;
+
+
 $main-bg: #f3f3f3;

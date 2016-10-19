@@ -10,9 +10,11 @@ import $ from "jquery";
 
 const app = function () {
 
+    let images = [];
 
     function init() {
         initUploadForm();
+        initImagesRow();
         console.log('init app');
     }
 
@@ -33,14 +35,39 @@ const app = function () {
                 type: 'POST',
                 contentType: false,
                 processData: false
-            }).done(() => {
-                alert( "success" );
+            }).done((response) => {
+                let image = response.data;
+                let section = document.querySelector('.images');
+                section.insertBefore( imageTemplate(image), section.firstChild );
             }).fail(() => {
                 alert( "error" );
             }).always(() => {
                 uploadButton.innerHTML = buttonText;
             });
         }
+    }
+
+    function initImagesRow() {
+        $.ajax({
+            url: '/api/images/',
+            type: 'GET'
+        }).done((response) => {
+            images = response.data;
+            images.forEach((image) => {
+                document.querySelector('.images').appendChild(imageTemplate(image));
+            });
+        }).fail(() => {
+            alert( "error" );
+        });
+
+
+    }
+
+    function imageTemplate(image) {
+        let template = document.querySelector("[data-template=image-template]").content.cloneNode(true);
+        template.querySelector('.image').style.backgroundImage = "url(" + image.src + ")";
+        template.querySelector('.image-label').innerHTML = image.label;
+        return template;
     }
 
     init();

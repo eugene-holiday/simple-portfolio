@@ -13,6 +13,10 @@ class ImageController extends Controller
 {
     use Helpers;
 
+    /**
+     * @param Request $request
+     * @return \Dingo\Api\Http\Response
+     */
     public function upload(Request $request)
     {
         if($request->hasFile('image')){
@@ -20,12 +24,19 @@ class ImageController extends Controller
             $image = new Image($request->all());
             $image->saveFile($file);
             $image->save();
-            return $this->response()->created();
+            return $this->response()->item($image, new ImageTransformer());
         } else {
             throw new ResourceException();
         }
-
-
     }
 
+    /**
+     * @param Request $request
+     * @return \Dingo\Api\Http\Response
+     */
+    public function index(Request $request)
+    {
+        $images = Image::limit(20)->orderBy('created_at', 'DESC')->get();
+        return $this->response()->collection($images, new ImageTransformer());
+    }
 }

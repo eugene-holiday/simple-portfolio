@@ -17,4 +17,5 @@ $api = app('Dingo\Api\Routing\Router');
 
 $api->version('v1', function ($api) {
     $api->post('images/upload', 'App\Api\Controllers\ImageController@upload');
+    $api->get('images/', 'App\Api\Controllers\ImageController@index');
 });

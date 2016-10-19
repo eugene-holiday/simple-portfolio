@@ -2,11 +2,11 @@
 // Fonts
 @import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
 
-// Bootstrap
-@import "../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
-
 // Variables
 @import "variables";
+
+// Bootstrap
+@import "../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
 
 
 body {
@@ -22,9 +22,38 @@ body {
   padding-bottom: 30px;
 }
 
+.images {
+
+}
+
+.image-container{
+
+}
+
+.image {
+  width: 100%;
+  height: 100px;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.image-label{
+
+}
+
+.image-wrap{
+
+}
 
 @media (min-width: $screen-md-min) {
   .pull-right-sm {
     float: right;
   }
 }
+
+@media (max-width: $screen-xs-max) {
+  .right-control {
+    margin-top: 20px;
+  }
+}
+

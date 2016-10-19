@@ -21,4 +21,9 @@ class Image extends Model
     {
         return str_random(15) . '.' . $file->getClientOriginalExtension();
     }
+
+    public function getSrcAttribute()
+    {
+        return $this->path . '/' . $this->filename;
+    }
 }

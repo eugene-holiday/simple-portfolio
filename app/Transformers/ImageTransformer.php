@@ -8,13 +8,14 @@ use App\Image;
 class ImageTransformer  extends Fractal\TransformerAbstract
 {
     /**
-     * @param Number $number
+     * @param Image $image
      * @return array
      */
-    public function transform(Number $number)
+    public function transform(Image $image)
     {
         return [
-
+            'label' => $image->label,
+            'src' => $image->src
         ];
     }
 }
