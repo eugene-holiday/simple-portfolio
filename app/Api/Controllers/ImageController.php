@@ -36,7 +36,7 @@ class ImageController extends Controller
      */
     public function index(Request $request)
     {
-        $images = Image::limit(20)->orderBy('created_at', 'DESC')->get();
+        $images = Image::limit($request->get('limit'))->offset($request->get('offset'))->orderBy('created_at', 'DESC')->get();
         return $this->response()->collection($images, new ImageTransformer());
     }
 }
